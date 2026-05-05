@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | MVG Community Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink:     '#0F1A14',
+            accent:  '#1C3D2A',
+            gold:    '#C9973A',
+            'gold-lt':'#E8C06A',
+            cream:   '#F2ECE0',
+            muted:   '#6B7B6E',
+          },
+          fontFamily: {
+            serif: ["'Playfair Display'", 'Georgia', 'serif'],
+            sans:  ["'DM Sans'", 'sans-serif'],
+          },
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --ink:    #0F1A14;
+      --bg:     #FDFAF5;
+      --accent: #1C3D2A;
+      --gold:   #C9973A;
+      --gold-lt:#E8C06A;
+      --cream:  #F2ECE0;
+      --muted:  #6B7B6E;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: #FDFAF5; color: #0F1A14; overflow-x: hidden; }
+
+    #navbar { transition: background 0.4s, box-shadow 0.4s; }
+    #navbar.nav-dark {
+      background: rgba(15,26,20,0.97) !important;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(201,151,58,0.18);
+    }
+
+    @keyframes scrollPulse {
+      0%,100% { opacity: 0.5; }
+      50%      { opacity: 1;   }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ── -->
+  <nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:transparent;">
+
+    <a href="/" style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:0.02em;text-decoration:none;display:flex;align-items:center;">
+      MVG<span style="color:var(--gold);">&nbsp;Community</span><span style="color:rgba(255,255,255,0.5);font-weight:300;">&nbsp;Foundation</span>
+    </a>
+
+    <ul style="display:flex;align-items:center;gap:28px;list-style:none;">
+      <% [['/', 'Home'],['/about','About'],['/programs','Programs'],['/donate','Donate'],['/contact','Contact']].forEach(([href,label]) => { %>
+        <li>
+          <a href="<%= href %>"
+            style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0.04em;transition:color 0.2s;border-bottom:1px solid transparent;padding-bottom:2px;"
+            onmouseover="this.style.color='#C9973A';this.style.borderBottomColor='#C9973A';"
+            onmouseout="this.style.color='rgba(255,255,255,0.8)';this.style.borderBottomColor='transparent';">
+            <%= label %>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+
+    <a href="/donate"
+      style="background:var(--gold);color:var(--ink);font-size:13px;font-weight:600;padding:9px 20px;border-radius:4px;letter-spacing:0.04em;text-decoration:none;transition:background 0.2s;"
+      onmouseover="this.style.background='#E8C06A';"
+      onmouseout="this.style.background='#C9973A';">
+      Donate Now
+    </a>
+  </nav>
+
+  <!-- ── CONTENT ── -->
+  <main><%- body %></main>
+
+  <!-- ── FOOTER ── -->
+  <footer style="background:var(--ink);padding:60px 64px 40px;">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;gap:32px;">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:12px;">
+            MVG <span style="color:var(--gold);">Community</span> Foundation
+          </div>
+          <p style="font-size:14px;color:rgba(255,255,255,0.4);max-width:280px;line-height:1.65;">
+            Channeling gold into opportunity, one community at a time.
+          </p>
+        </div>
+        <div style="display:flex;gap:48px;">
+          <% [['/', 'Home'],['/about','About'],['/programs','Programs'],['/donate','Donate'],['/contact','Contact']].forEach(([href,label]) => { %>
+            <a href="<%= href %>"
+              style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.04em;transition:color 0.2s;"
+              onmouseover="this.style.color='#C9973A';"
+              onmouseout="this.style.color='rgba(255,255,255,0.5)';">
+              <%= label %>
+            </a>
+          <% }) %>
+        </div>
+      </div>
+      <div style="padding-top:24px;display:flex;justify-content:space-between;align-items:center;">
+        <p style="font-size:13px;color:rgba(255,255,255,0.25);">&copy; <%= new Date().getFullYear() %> MVG Community Foundation. All rights reserved.</p>
+        <p style="font-size:12px;color:rgba(255,255,255,0.2);">Mozambique · Africa</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    <% if (locals.page !== 'home') { %>
+    navbar.classList.add('nav-dark');
+    <% } else { %>
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('nav-dark', window.scrollY > 40);
+    });
+    <% } %>
+  </script>
+</body>
+</html>

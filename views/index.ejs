@@ -1,0 +1,245 @@
+<!-- ══════════════════════════════════════════════
+     HERO — full-bleed
+═══════════════════════════════════════════════ -->
+<section style="position:relative;height:100vh;min-height:600px;display:flex;align-items:flex-end;overflow:hidden;">
+
+  <!-- Background image + gradient overlay -->
+  <div style="position:absolute;inset:0;background-image:linear-gradient(to bottom, rgba(10,18,12,0.3) 0%, rgba(10,18,12,0.1) 35%, rgba(10,18,12,0.78) 100%), url('https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1800&q=80');background-size:cover;background-position:center;"></div>
+
+  <!-- Content -->
+  <div style="position:relative;z-index:2;max-width:820px;padding:0 64px 96px;">
+
+    <!-- Eyebrow -->
+    <div style="display:inline-flex;align-items:center;gap:10px;color:var(--gold);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:24px;">
+      <span style="display:block;width:32px;height:1px;background:var(--gold);"></span>
+      Mozambique · Since 2016
+    </div>
+
+    <!-- Title -->
+    <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(44px,6.5vw,84px);line-height:1.05;color:#fff;margin-bottom:24px;">
+      <span style="display:block;">Building futures</span>
+      <span style="display:block;"><em style="color:var(--gold);font-style:italic;">in the heart of</em></span>
+      <span style="display:block;">Mozambique</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p style="font-size:18px;font-weight:300;line-height:1.7;color:rgba(255,255,255,0.82);max-width:520px;margin-bottom:40px;">
+      MVG Community Foundation channels proceeds from responsible gold mining into education, health, and lasting opportunity for local communities.
+    </p>
+
+    <!-- CTAs -->
+    <div style="display:flex;gap:16px;flex-wrap:wrap;">
+      <a href="/programs"
+        style="background:var(--gold);color:var(--ink);font-size:15px;font-weight:600;padding:16px 36px;border-radius:4px;letter-spacing:0.04em;text-decoration:none;transition:background 0.2s;"
+        onmouseover="this.style.background='#E8C06A';"
+        onmouseout="this.style.background='#C9973A';">
+        Our Programs
+      </a>
+      <a href="/about"
+        style="background:none;color:#fff;border:1px solid rgba(255,255,255,0.45);font-size:15px;font-weight:500;padding:16px 36px;border-radius:4px;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;"
+        onmouseover="this.style.borderColor='#C9973A';this.style.color='#C9973A';"
+        onmouseout="this.style.borderColor='rgba(255,255,255,0.45)';this.style.color='#fff';">
+        Our Story
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position:absolute;bottom:36px;right:64px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.4);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;">
+    <div style="width:1px;height:48px;background:linear-gradient(to bottom, rgba(201,151,58,0.8), transparent);animation:scrollPulse 2s ease-in-out infinite;"></div>
+    Scroll
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     STATS BAR
+═══════════════════════════════════════════════ -->
+<section style="background:var(--accent);display:grid;grid-template-columns:repeat(4,1fr);">
+  <% const stats = [['5,200+','Lives Impacted'],['12','Active Programs'],['8','Years of Service'],['100%','Locally Reinvested']]; %>
+  <% stats.forEach(([n, label], i) => { %>
+    <div style="padding:56px 40px;<%= i < 3 ? 'border-right:1px solid rgba(201,151,58,0.15);' : '' %>">
+      <div style="font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1;margin-bottom:8px;"><%= n %></div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.5);letter-spacing:0.1em;text-transform:uppercase;font-weight:500;"><%= label %></div>
+    </div>
+  <% }) %>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     MISSION
+═══════════════════════════════════════════════ -->
+<section style="background:var(--cream);padding:100px 64px;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto;">
+
+    <!-- Image -->
+    <div style="position:relative;">
+      <div style="width:100%;aspect-ratio:4/5;background-image:url('https://images.unsplash.com/photo-1594608661623-aa0bd3a69d98?w=800&q=80');background-size:cover;background-position:center;border-radius:2px;"></div>
+      <div style="position:absolute;top:32px;left:-4px;width:4px;height:80px;background:var(--gold);"></div>
+      <!-- Floating caption -->
+      <div style="position:absolute;bottom:32px;right:-24px;background:var(--accent);color:#fff;padding:20px 24px;max-width:220px;border-radius:2px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;font-weight:600;">Gold Mining → Community</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.8);">Proceeds from responsible gold extraction in Mozambique flow directly into these programs.</div>
+      </div>
+    </div>
+
+    <!-- Text -->
+    <div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;margin-bottom:20px;">
+        <span style="display:inline-block;width:28px;height:1px;background:var(--gold);margin-right:10px;"></span>
+        Our Mission
+      </div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.15;color:var(--ink);margin-bottom:28px;">From the mine to the community</h2>
+      <p style="font-size:17px;line-height:1.75;color:var(--muted);margin-bottom:20px;">
+        MVG Community Foundation was established to ensure that the wealth generated from Mozambique's natural resources flows directly back to the people who live alongside it.
+      </p>
+      <p style="font-size:17px;line-height:1.75;color:var(--muted);margin-bottom:32px;">
+        Every dollar raised is reinvested in programs that create measurable, lasting change — one family at a time.
+      </p>
+      <blockquote style="margin:0;padding:24px 28px;border-left:3px solid var(--gold);background:rgba(201,151,58,0.06);font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--ink);line-height:1.6;">
+        "We believe every person deserves access to the resources they need to thrive."
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     PROGRAMS PREVIEW
+═══════════════════════════════════════════════ -->
+<section style="background:#FDFAF5;padding:100px 64px;">
+  <div style="max-width:1200px;margin:0 auto;">
+
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;margin-bottom:20px;">
+      <span style="display:inline-block;width:28px;height:1px;background:var(--gold);margin-right:10px;"></span>
+      What We Do
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;flex-wrap:wrap;gap:24px;">
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.15;color:var(--ink);max-width:480px;">Programs that transform lives</h2>
+      <a href="/programs"
+        style="background:none;color:var(--accent);border:1px solid var(--accent);font-size:14px;font-weight:500;padding:12px 28px;border-radius:4px;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;"
+        onmouseover="this.style.background='var(--accent)';this.style.color='#fff';"
+        onmouseout="this.style.background='none';this.style.color='var(--accent)';">
+        → All Programs
+      </a>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;">
+      <% const programs = [
+        { icon:'📚', title:'Education & Tutoring',  body:'Free after-school tutoring, college prep workshops, and scholarship opportunities for students from low-income households.' },
+        { icon:'🌾', title:'Food Security',          body:'Weekly food distributions, community gardens, and partnerships with local food banks to ensure no family goes hungry.' },
+        { icon:'🏥', title:'Health & Wellness',      body:'Free health screenings, mental health resources, and referrals to affordable care for uninsured community members.' },
+        { icon:'💼', title:'Job Readiness',          body:'Resume workshops, interview coaching, and connections to local employers for adults seeking stable employment.' },
+        { icon:'🌱', title:'Youth Leadership',       body:'Mentorship programs, civic engagement training, and leadership retreats to develop the next generation.' },
+        { icon:'🤝', title:'Senior Support',         body:'Transportation assistance, meal delivery, and social activities for elderly residents who may be isolated.' },
+      ]; %>
+      <% programs.forEach(p => { %>
+        <div
+          style="background:var(--cream);padding:40px 36px;border-top:3px solid var(--gold);transition:transform 0.2s,box-shadow 0.2s;"
+          onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 40px rgba(0,0,0,0.08)';"
+          onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';">
+          <div style="font-size:28px;margin-bottom:20px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:var(--accent);border-radius:2px;">
+            <%= p.icon %>
+          </div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.3;"><%= p.title %></h3>
+          <p style="font-size:15px;line-height:1.7;color:var(--muted);"><%= p.body %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     DONATE
+═══════════════════════════════════════════════ -->
+<section style="background:var(--accent);padding:100px 64px;" id="donate-home">
+  <div style="max-width:1100px;margin:0 auto;">
+
+    <div style="font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;margin-bottom:20px;">
+      <span style="display:inline-block;width:28px;height:1px;background:var(--gold);margin-right:10px;"></span>
+      Support Us
+    </div>
+
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.15;color:#fff;margin-bottom:16px;">Make a difference today</h2>
+    <p style="font-size:17px;color:rgba(255,255,255,0.65);margin-bottom:60px;max-width:520px;line-height:1.7;">
+      Your generosity fuels every program we run. Every dollar goes directly to serving communities in Mozambique.
+    </p>
+
+    <!-- Tier cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px;" id="tier-grid">
+      <% const tiers = [
+        { amount:'$25',  tier:'Supporter', badge:null,           desc:'Provides school supplies for one child for a full semester.' },
+        { amount:'$100', tier:'Champion',  badge:'Most Popular', desc:'Feeds a family of four for an entire month through our food program.' },
+        { amount:'$500', tier:'Leader',    badge:null,           desc:'Sponsors a full year of mentoring for one at-risk youth.' },
+      ]; %>
+      <% tiers.forEach((t, i) => { %>
+        <div
+          class="tier-card"
+          data-index="<%= i %>"
+          style="padding:40px 36px;cursor:pointer;background:<%= i===1 ? 'var(--gold)' : 'rgba(255,255,255,0.06)' %>;border-top:3px solid <%= i===1 ? 'transparent' : 'rgba(201,151,58,0.3)' %>;transition:all 0.2s;"
+          onclick="selectTier(<%= i %>)">
+          <% if (t.badge) { %>
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:<%= i===1 ? 'var(--accent)' : 'var(--gold)' %>;margin-bottom:8px;"><%= t.badge %></div>
+          <% } %>
+          <div style="font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:<%= i===1 ? 'var(--ink)' : '#fff' %>;line-height:1;margin-bottom:8px;"><%= t.amount %></div>
+          <div style="font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:<%= i===1 ? 'var(--ink)' : 'rgba(255,255,255,0.5)' %>;margin-bottom:16px;"><%= t.tier %></div>
+          <p style="font-size:14px;line-height:1.65;color:<%= i===1 ? 'rgba(15,26,20,0.75)' : 'rgba(255,255,255,0.6)' %>;"><%= t.desc %></p>
+        </div>
+      <% }) %>
+    </div>
+
+    <!-- Form -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,0.04);padding:48px;">
+      <!-- Fields -->
+      <div style="padding-right:40px;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:28px;">Donate Now</h3>
+        <% [['Full Name','Jane Smith','text'],['Email','jane@example.com','email'],['Amount ($)','100','number']].forEach(([label,ph,type]) => { %>
+          <div style="margin-bottom:20px;">
+            <label style="display:block;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px;"><%= label %></label>
+            <input type="<%= type %>" placeholder="<%= ph %>" style="width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:4px;padding:12px 16px;color:#fff;font-size:15px;font-family:'DM Sans',sans-serif;outline:none;" />
+          </div>
+        <% }) %>
+        <button type="button" style="width:100%;background:var(--gold);color:var(--ink);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;padding:16px;border-radius:4px;letter-spacing:0.04em;margin-top:8px;transition:background 0.2s;"
+          onmouseover="this.style.background='#E8C06A';"
+          onmouseout="this.style.background='#C9973A';">
+          Donate Now
+        </button>
+      </div>
+      <!-- Selected tier info -->
+      <div id="tier-info" style="padding-left:40px;border-left:1px solid rgba(201,151,58,0.15);display:flex;flex-direction:column;justify-content:center;">
+        <div id="tier-amount" style="font-family:'Playfair Display',serif;font-size:40px;font-weight:900;color:var(--gold);margin-bottom:12px;">$100</div>
+        <div id="tier-name" style="font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:16px;">Champion</div>
+        <p id="tier-desc" style="font-size:15px;line-height:1.7;color:rgba(255,255,255,0.65);margin-bottom:32px;">Feeds a family of four for an entire month through our food program.</p>
+        <div style="font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6;">🔒 Secure, encrypted payment. Tax receipt provided.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tierData = [
+    { amount:'$25',  name:'Supporter', desc:'Provides school supplies for one child for a full semester.' },
+    { amount:'$100', name:'Champion',  desc:'Feeds a family of four for an entire month through our food program.' },
+    { amount:'$500', name:'Leader',    desc:'Sponsors a full year of mentoring for one at-risk youth.' },
+  ];
+
+  function selectTier(idx) {
+    document.querySelectorAll('.tier-card').forEach((card, i) => {
+      const selected = i === idx;
+      card.style.background    = selected ? 'var(--gold)' : 'rgba(255,255,255,0.06)';
+      card.style.borderTopColor = selected ? 'transparent' : 'rgba(201,151,58,0.3)';
+      card.querySelectorAll('[style]').forEach(el => {
+        // update text colors inside card
+      });
+      // Re-render text colors
+      const [amtEl, nameEl, descEl, badgeEl] = card.querySelectorAll('div:nth-child(1),div:nth-child(2),div:nth-child(3),p');
+    });
+
+    const t = tierData[idx];
+    document.getElementById('tier-amount').textContent = t.amount;
+    document.getElementById('tier-name').textContent   = t.name;
+    document.getElementById('tier-desc').textContent   = t.desc;
+  }
+</script>
