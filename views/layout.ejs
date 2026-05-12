@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= locals.lang === 'ua' ? 'uk' : 'en' %>">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,12 +13,12 @@
       theme: {
         extend: {
           colors: {
-            ink:     '#0F1A14',
-            accent:  '#1C3D2A',
-            gold:    '#C9973A',
+            ink:      '#0F1A14',
+            accent:   '#1C3D2A',
+            gold:     '#C9973A',
             'gold-lt':'#E8C06A',
-            cream:   '#F2ECE0',
-            muted:   '#6B7B6E',
+            cream:    '#F2ECE0',
+            muted:    '#6B7B6E',
           },
           fontFamily: {
             serif: ["'Playfair Display'", 'Georgia', 'serif'],
@@ -48,24 +48,33 @@
       backdrop-filter: blur(14px);
       box-shadow: 0 1px 0 rgba(201,151,58,0.18);
     }
+    #mobile-menu { backdrop-filter: blur(14px); }
 
     @keyframes scrollPulse {
       0%,100% { opacity: 0.5; }
-      50%      { opacity: 1;   }
+      50%      { opacity: 1; }
     }
   </style>
 </head>
 <body>
+<%
+  const isUa = locals.lang === 'ua';
+  const navItems = isUa
+    ? [['/ua','Головна'],['/ua/about','Про нас'],['/ua/programs','Програми'],['/ua/donate','Пожертвувати'],['/ua/contact','Контакти']]
+    : [['/', 'Home'],['/about','About'],['/programs','Programs'],['/donate','Donate'],['/contact','Contact']];
+%>
 
   <!-- ── NAVBAR ── -->
-  <nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:200;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:transparent;">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-[200] h-[68px] flex items-center justify-between px-4 md:px-12" style="background:transparent;">
 
-    <a href="/" style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:0.02em;text-decoration:none;display:flex;align-items:center;">
-      MVG<span style="color:var(--gold);">&nbsp;Community</span><span style="color:rgba(255,255,255,0.5);font-weight:300;">&nbsp;Foundation</span>
+    <!-- Logo -->
+    <a href="<%= isUa ? '/ua' : '/' %>" class="flex items-center shrink-0" style="font-family:'Playfair Display',serif;font-size:clamp(14px,2.5vw,18px);font-weight:700;color:#fff;letter-spacing:0.02em;text-decoration:none;">
+      MVG<span style="color:var(--gold);">&nbsp;Community</span><span class="hidden sm:inline" style="color:rgba(255,255,255,0.5);font-weight:300;">&nbsp;Foundation</span>
     </a>
 
-    <ul style="display:flex;align-items:center;gap:28px;list-style:none;">
-      <% [['/', 'Home'],['/about','About'],['/programs','Programs'],['/donate','Donate'],['/contact','Contact']].forEach(([href,label]) => { %>
+    <!-- Desktop nav links -->
+    <ul class="hidden md:flex items-center gap-6 list-none">
+      <% navItems.forEach(([href, label]) => { %>
         <li>
           <a href="<%= href %>"
             style="color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;letter-spacing:0.04em;transition:color 0.2s;border-bottom:1px solid transparent;padding-bottom:2px;"
@@ -77,33 +86,80 @@
       <% }) %>
     </ul>
 
-    <a href="/donate"
-      style="background:var(--gold);color:var(--ink);font-size:13px;font-weight:600;padding:9px 20px;border-radius:4px;letter-spacing:0.04em;text-decoration:none;transition:background 0.2s;"
-      onmouseover="this.style.background='#E8C06A';"
-      onmouseout="this.style.background='#C9973A';">
-      Donate Now
-    </a>
+    <!-- Desktop right: lang switcher + donate btn -->
+    <div class="hidden md:flex items-center gap-3.5">
+      <div class="flex gap-[2px] rounded-[20px] p-[3px]" style="background:rgba(255,255,255,0.1);">
+        <a href="<%= locals.enUrl || '/' %>"
+          class="text-xs font-semibold px-[10px] py-1 rounded-[16px] uppercase tracking-widest no-underline transition-all"
+          style="background:<%= isUa ? 'none' : 'var(--gold)' %>;color:<%= isUa ? 'rgba(255,255,255,0.6)' : '#0F1A14' %>;">EN</a>
+        <a href="<%= locals.uaUrl || '/ua' %>"
+          class="text-xs font-semibold px-[10px] py-1 rounded-[16px] uppercase tracking-widest no-underline transition-all"
+          style="background:<%= isUa ? 'var(--gold)' : 'none' %>;color:<%= isUa ? '#0F1A14' : 'rgba(255,255,255,0.6)' %>;">UA</a>
+      </div>
+      <a href="<%= isUa ? '/ua/donate' : '/donate' %>"
+        class="text-[13px] font-semibold px-5 py-2.5 rounded no-underline transition-colors"
+        style="background:var(--gold);color:var(--ink);letter-spacing:0.04em;"
+        onmouseover="this.style.background='#E8C06A';"
+        onmouseout="this.style.background='#C9973A';">
+        <%= isUa ? 'Пожертвувати' : 'Donate Now' %>
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button id="menu-btn" class="md:hidden text-white p-2 -mr-1 cursor-pointer border-0 bg-transparent" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+      <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+      <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
   </nav>
+
+  <!-- Mobile dropdown menu -->
+  <div id="mobile-menu" class="hidden fixed top-[68px] left-0 right-0 z-[199] flex-col p-6 gap-1 md:hidden" style="background:rgba(15,26,20,0.97);">
+    <% navItems.forEach(([href, label]) => { %>
+      <a href="<%= href %>" class="block py-3 no-underline text-base font-medium" style="color:rgba(255,255,255,0.85);border-bottom:1px solid rgba(255,255,255,0.06);"
+        onmouseover="this.style.color='#C9973A';"
+        onmouseout="this.style.color='rgba(255,255,255,0.85)';">
+        <%= label %>
+      </a>
+    <% }) %>
+    <div class="flex items-center justify-between pt-4 mt-2">
+      <div class="flex gap-[2px] rounded-[20px] p-[3px]" style="background:rgba(255,255,255,0.1);">
+        <a href="<%= locals.enUrl || '/' %>"
+          class="text-xs font-semibold px-[10px] py-1 rounded-[16px] uppercase tracking-widest no-underline"
+          style="background:<%= isUa ? 'none' : 'var(--gold)' %>;color:<%= isUa ? 'rgba(255,255,255,0.6)' : '#0F1A14' %>;">EN</a>
+        <a href="<%= locals.uaUrl || '/ua' %>"
+          class="text-xs font-semibold px-[10px] py-1 rounded-[16px] uppercase tracking-widest no-underline"
+          style="background:<%= isUa ? 'var(--gold)' : 'none' %>;color:<%= isUa ? '#0F1A14' : 'rgba(255,255,255,0.6)' %>;">UA</a>
+      </div>
+      <a href="<%= isUa ? '/ua/donate' : '/donate' %>"
+        class="text-sm font-bold px-5 py-2.5 rounded no-underline"
+        style="background:var(--gold);color:var(--ink);">
+        <%= isUa ? 'Пожертвувати' : 'Donate Now' %>
+      </a>
+    </div>
+  </div>
 
   <!-- ── CONTENT ── -->
   <main><%- body %></main>
 
   <!-- ── FOOTER ── -->
-  <footer style="background:var(--ink);padding:60px 64px 40px;">
-    <div style="max-width:1200px;margin:0 auto;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;gap:32px;">
+  <footer class="px-4 pt-12 pb-8 md:px-16 md:pt-16 md:pb-10" style="background:var(--ink);">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="flex flex-col gap-8 pb-8 md:flex-row md:justify-between md:items-start" style="border-bottom:1px solid rgba(255,255,255,0.08);">
         <div>
-          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:12px;">
+          <div class="mb-3" style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;">
             MVG <span style="color:var(--gold);">Community</span> Foundation
           </div>
-          <p style="font-size:14px;color:rgba(255,255,255,0.4);max-width:280px;line-height:1.65;">
-            Channeling gold into opportunity, one community at a time.
+          <p class="text-sm max-w-[280px] leading-relaxed" style="color:rgba(255,255,255,0.4);">
+            <%= isUa ? 'Перетворюємо золото на можливості — для кожної громади.' : 'Channeling gold into opportunity, one community at a time.' %>
           </p>
         </div>
-        <div style="display:flex;gap:48px;">
-          <% [['/', 'Home'],['/about','About'],['/programs','Programs'],['/donate','Donate'],['/contact','Contact']].forEach(([href,label]) => { %>
-            <a href="<%= href %>"
-              style="color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:0.04em;transition:color 0.2s;"
+        <div class="flex flex-wrap gap-x-8 gap-y-3">
+          <% navItems.forEach(([href, label]) => { %>
+            <a href="<%= href %>" class="text-[13px] font-medium no-underline transition-colors" style="color:rgba(255,255,255,0.5);"
               onmouseover="this.style.color='#C9973A';"
               onmouseout="this.style.color='rgba(255,255,255,0.5)';">
               <%= label %>
@@ -111,9 +167,12 @@
           <% }) %>
         </div>
       </div>
-      <div style="padding-top:24px;display:flex;justify-content:space-between;align-items:center;">
-        <p style="font-size:13px;color:rgba(255,255,255,0.25);">&copy; <%= new Date().getFullYear() %> MVG Community Foundation. All rights reserved.</p>
-        <p style="font-size:12px;color:rgba(255,255,255,0.2);">Mozambique · Africa</p>
+      <div class="pt-5 flex flex-col gap-1 sm:flex-row sm:justify-between sm:items-center">
+        <p class="text-[13px]" style="color:rgba(255,255,255,0.25);">
+          &copy; <%= new Date().getFullYear() %> MVG Community Foundation.
+          <%= isUa ? 'Усі права захищені.' : 'All rights reserved.' %>
+        </p>
+        <p class="text-xs" style="color:rgba(255,255,255,0.2);">Mozambique · Africa</p>
       </div>
     </div>
   </footer>
@@ -127,6 +186,17 @@
       navbar.classList.toggle('nav-dark', window.scrollY > 40);
     });
     <% } %>
+
+    function toggleMobileMenu() {
+      const menu    = document.getElementById('mobile-menu');
+      const iconOpen  = document.getElementById('icon-open');
+      const iconClose = document.getElementById('icon-close');
+      const isOpen  = menu.classList.contains('flex');
+      menu.classList.toggle('hidden', isOpen);
+      menu.classList.toggle('flex', !isOpen);
+      iconOpen.classList.toggle('hidden', !isOpen);
+      iconClose.classList.toggle('hidden', isOpen);
+    }
   </script>
 </body>
 </html>
