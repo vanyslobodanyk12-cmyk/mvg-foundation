@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./database/db.js");
 const express = require("express");
 const path = require("path");
 const expressLayouts = require("express-ejs-layouts");

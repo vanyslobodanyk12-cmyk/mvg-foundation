@@ -1,3 +1,10 @@
+const {
+  saveMessage,
+  getMessages,
+  mapTelegramToSession,
+  getWebSessionForTelegram
+} = require("../services/chatService");
+const { notifyNewMessage, handleWebhookUpdate } = require("../services/telegramService");
 const express = require("express");
 const router = express.Router();
 
@@ -88,6 +95,154 @@ router.post('/donate-request', async (req, res) => {
     console.error('[donate-request] fetch error:', err.message);
     res.status(500).json({ ok: false, error: 'Failed to send notification' });
   }
+});
+
+router.post("/test-chat", async (req, res) => {
+  try {
+
+    const { sessionId, message } = req.body;
+
+    const validation = validateMessage(message);
+
+    if (!validation.ok) {
+      return res.status(400).json(validation);
+    }
+
+    const result = await saveMessage(
+      sessionId,
+      "client",
+      validation.cleanMessage
+    );
+    res.json({
+      ok: true,
+      result
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      error: error.message
+    });
+
+  }
+});
+const { validateMessage } = require("../utils/chatValidation");
+router.post("/chat/send", async (req, res) => {
+
+  try {
+
+    const {
+      sessionId,
+      message
+    } = req.body;
+
+    const validation = validateMessage(message);
+
+    if (!validation.ok) {
+      return res.status(400).json(validation);
+    }
+
+    const saved = await saveMessage(
+      sessionId,
+      "client",
+      validation.cleanMessage
+    );
+
+    notifyNewMessage(sessionId, message.trim()).catch(err => {
+      console.error('[telegram] notify failed:', err.message);
+    });
+
+    const tgChatId = process.env.TELEGRAM_CHAT_ID;
+    if (tgChatId) {
+      mapTelegramToSession(tgChatId, sessionId).catch(err => {
+        console.error('[session-map] failed:', err.message);
+      });
+    }
+
+    res.json({
+      ok: true,
+      message: saved
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      error: error.message
+    });
+
+  }
+
+});
+router.get("/chat/messages/:sessionId", async (req, res) => {
+
+  try {
+
+    const { sessionId } = req.params;
+
+    const messages = await getMessages(sessionId);
+
+    res.json({
+      ok: true,
+      messages
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      error: error.message
+    });
+
+  }
+
+});
+router.post('/telegram/webhook', (req, res) => {
+  console.log('TG UPDATE:', JSON.stringify(req.body, null, 2));   
+  const secret = process.env.TELEGRAM_WEBHOOK_SECRET;
+  if (secret && req.headers['x-telegram-bot-api-secret-token'] !== secret) {
+    return res.sendStatus(403);
+  }
+
+  res.sendStatus(200); // відповідаємо Telegram одразу, не чекаємо обробки
+
+  handleWebhookUpdate(req.body).catch(err => {
+    console.error('[telegram] webhook error:', err.message);
+  });
+});
+
+router.post("/telegram-webhook", async (req, res) => {
+    console.log("Telegram webhook hit");
+
+    try {
+        const msg = req.body.message;
+
+        if (msg && msg.text) {
+            const chatId    = msg.chat.id;
+            const text      = msg.text;
+
+            const webSession = await getWebSessionForTelegram(chatId);
+            const sessionId  = webSession || ('tg_' + chatId);
+
+            await saveMessage(sessionId, "telegram", text);
+
+            console.log("Telegram message saved");
+            console.log("sessionId:", sessionId, webSession ? '(web session)' : '(no mapping yet)');
+            console.log("text:", text);
+        }
+
+        return res.sendStatus(200);
+    } catch (err) {
+        console.error(err);
+        return res.sendStatus(500);
+    }
 });
 
 module.exports = router;
